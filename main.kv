@@ -1,0 +1,214 @@
+#:kivy 1.9.2
+<MainWid>:
+    canvas:
+        Color:
+            rgb: 2,2,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<StartWid>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgb: .3,.3,.9
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size_hint_y: .7
+    Image:
+        source: 'logo.png'
+        allow_stretch: False
+        keep_ratio: False
+    Button:
+        size_hint_y: .1
+        text: 'Conectar a base de datos'
+        on_press: root.create_database()
+    BoxLayout:
+        size_hint_y: .2
+
+<DataWid>:
+    data: ''
+    data_id: ''
+    canvas:
+        Color:
+            rgb: 0.2,0.2,0.2
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Label:
+        size_hint_x: 0.9
+        size_font: self.width*0.4
+        text: root.data
+    Button:
+        size_hint_x: 0.1
+        text: 'Edit'
+        on_press: root.update_data(root.data_id)
+
+<NewDataButton>:
+    font_size: self.height*0.5
+    text: '+'
+    on_press: self.create_new_product()
+
+<DataBaseWid>:
+    canvas:
+        Color:
+            rgb: .3,.3,.9
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ScrollView:
+        size: self.size
+        GridLayout:
+            id: container
+            padding: [10,10,10,10]
+            spacing: 5
+            size_hint_y: None
+            cols: 1
+            row_default_height: root.height*0.2
+            height: self.minimum_height
+
+<LeftLabel@Label>:
+    text_size: self.size
+    halign: 'left'
+
+<MessagePopup>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: message
+            size_hint: 1,0.8
+            text: ''
+        Button:
+            size_hint: 1,0.2
+            text: 'Regresar'
+            on_press: root.dismiss()
+
+<InsertDataWid>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgb: 0.1,0.3,0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    LeftLabel: # ---------- ID
+        text: ' ID:'
+    TextInput:
+        id: ti_id
+        multiline: False
+        hint_text: 'ID'
+    LeftLabel: # ---------- Nombre
+        text: ' Nombre:'
+    TextInput:
+        id: ti_nombre
+        multiline: False
+        hint_text: 'Nombre'
+    LeftLabel: # ---------- app
+        text: ' app:'
+    TextInput:
+        id: ti_app
+        multiline: False
+        hint_text: 'apellido paterno'
+    LeftLabel: # ---------- apm
+        text: 'apellido materno:'
+    TextInput:
+        id: ti_apm
+        multiline: False
+        hint_text: 'apellido materno'
+    LeftLabel:  # ---------- Alamcen
+        text: 'fecha:'
+    TextInput:
+        id: ti_fecha
+        multiline: False
+    LeftLabel: # ---------- Edad
+        text: 'Edad:'
+    TextInput:
+        id: ti_edad
+        multiline: False
+        hint_text: 'Edad'
+    LeftLabel:
+        text:'Telefono'
+    TextInput:
+        id:ti_telefono
+        multiline:False
+        hint_text:'telefono'
+    LeftLabel:
+        text:'Problema '
+    TextInput:
+        id:ti_problema
+        multiline:False
+        hint_text:'Problema de salud'
+
+    BoxLayout:
+        size_hint_y: 5
+    BoxLayout: # ---------- Crear Salir
+        Button:
+            text: 'Crear'
+            on_press: root.insert_data()
+        Button:
+            text: 'Salir'
+            on_press: root.back_to_dbw()
+
+<UpdateDataWid>:
+    orientation: 'vertical'
+    data_id: ''
+    canvas:
+        Color:
+            rgb: 0.2,0.2,0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    LeftLabel: # ---------- ID
+        text: ' ID: '+root.data_id
+    LeftLabel: # ---------- Nombre
+        text: ' Nombre:'
+    TextInput:
+        id: ti_nombre
+        multiline: False
+        hint_text: 'Nombre'
+    LeftLabel: # ---------- app
+        text: ' app:'
+    TextInput:
+        id: ti_app
+        multiline: False
+        hint_text: 'apellido paterno'
+    LeftLabel: # ---------- apm
+        text: 'apellido materno:'
+    TextInput:
+        id: ti_apm
+        multiline: False
+        hint_text: 'apellido materno'
+    LeftLabel:  # ---------- Alamcen
+        text: 'fecha:'
+    TextInput:
+        id: ti_fecha
+        multiline: False
+    LeftLabel: # ---------- Edad
+        text: 'Edad:'
+    TextInput:
+        id: ti_edad
+        multiline: False
+    LeftLabel:
+        text:'Telefono'
+    TextInput:
+        id:ti_telefono
+        multiline:False
+    LeftLabel:
+        text:'Problema '
+    TextInput:
+        id:ti_problema
+        multiline:False
+    BoxLayout:
+        size_hint_y: 4
+    BoxLayout:
+        Button:
+            text: 'Actualizar'
+            on_press: root.update_data()
+        Button:
+            text: 'Eliminar'
+            on_press: root.delete_data()
+    Button: # ---------- Actualizar, Salir
+        text: 'Salir'
+        on_press: root.mainwid.goto_database()
